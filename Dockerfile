@@ -13,7 +13,9 @@ RUN apt-get update && apt-get install -y wget ca-certificates build-essential li
       apt-get clean && apt-get purge
 
 COPY initdb.d /docker-entrypoint-initdb.d
-COPY fix-stuff.sh /usr/local/bin/
+COPY docker-healthcheck.sh fix-stuff.sh /usr/local/bin/
+
+HEALTHCHECK CMD ["docker-healthcheck.sh"]
 
 # NO_ENGINE_SUBSTITUTION allows non-nullable fields without default value
 CMD ["mysqld", "--sql-mode=NO_ENGINE_SUBSTITUTION"]
