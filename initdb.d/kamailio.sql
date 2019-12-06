@@ -1,1 +1,1 @@
-create database kamailio;
+CREATE DATABASE IF NOT EXISTS kamailio;

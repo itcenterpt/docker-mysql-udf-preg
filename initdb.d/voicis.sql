@@ -1,1 +1,1 @@
-create database voicis;
+CREATE DATABASE IF NOT EXISTS voicis;
