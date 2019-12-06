@@ -8,10 +8,12 @@ RUN apt-get update && apt-get install -y wget ca-certificates build-essential li
       make install && \
       apt-get remove -y wget ca-certificates build-essential libmysqlclient-dev libpcre3-dev && \
       cp installdb.sql /docker-entrypoint-initdb.d/ && \
+      sed -i -e 's/CREATE FUNCTION/CREATE OR REPLACE FUNCTION/g' /docker-entrypoint-initdb.d/installdb.sql && \
       cd .. && rm -rf lib_mysqludf_preg-lib_mysqludf_preg-1.2-rc2 && \
       apt-get clean && apt-get purge
 
 COPY initdb.d /docker-entrypoint-initdb.d
+COPY fix-stuff.sh /usr/local/bin/
 
 # NO_ENGINE_SUBSTITUTION allows non-nullable fields without default value
 CMD ["mysqld", "--sql-mode=NO_ENGINE_SUBSTITUTION"]
