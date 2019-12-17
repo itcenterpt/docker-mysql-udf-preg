@@ -18,4 +18,4 @@ COPY docker-healthcheck.sh fix-stuff.sh /usr/local/bin/
 HEALTHCHECK CMD ["docker-healthcheck.sh"]
 
 # NO_ENGINE_SUBSTITUTION allows non-nullable fields without default value
-CMD ["mysqld", "--sql-mode=NO_ENGINE_SUBSTITUTION"]
+CMD ["mysqld","--max-connections=2000","--sql-mode=NO_ENGINE_SUBSTITUTION"]
